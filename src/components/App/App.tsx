@@ -9,7 +9,7 @@ import ReactPaginate from "react-paginate";
 
 import { fetchNotes, deleteNote } from "../../services/noteService";
 
-import NoteList from "../NoteList/NoteList";
+import NoteList from "../NoteList/notelist";
 import SearchBox from "../SearchBox/searchbox";
 import Modal from "../Modal/modal";
 import NoteForm from "../NoteForm/noteform";
