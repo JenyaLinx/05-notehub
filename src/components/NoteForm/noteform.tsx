@@ -8,17 +8,17 @@ interface NoteFormProps {
   onClose: () => void;
 }
 
-// Тип для тегів
+
 type NoteTag = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
 
-// Тип значень форми
+
 interface NoteFormValues {
   title: string;
   content: string;
   tag: NoteTag;
 }
 
-// Валідатор Yup
+
 const schema = Yup.object<NoteFormValues>({
   title: Yup.string().min(3).max(50).required(),
   content: Yup.string().max(500),
