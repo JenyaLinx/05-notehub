@@ -5,8 +5,8 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useDebouncedCallback } from "use-debounce";
-import ReactPaginate from "react-paginate";
-
+import Pagination from "../Pagination/pagination";
+import { keepPreviousData } from "@tanstack/react-query";
 import { fetchNotes, deleteNote } from "../../services/noteService";
 
 import NoteList from "../NoteList/notelist";
@@ -25,9 +25,10 @@ export default function App() {
   const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["notes", page, search],
-    queryFn: () => fetchNotes(page, search),
-  });
+  queryKey: ["notes", page, search],
+  queryFn: () => fetchNotes(page, search),
+  placeholderData: keepPreviousData,
+});
 
   const deleteMutation = useMutation({
     mutationFn: deleteNote,
@@ -44,7 +45,7 @@ export default function App() {
   const notes = data?.notes ?? [];
   const totalPages = data?.totalPages ?? 0;
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     deleteMutation.mutate(id);
   };
 
@@ -53,19 +54,13 @@ export default function App() {
       <header className={css.toolbar}>
         <SearchBox onSearch={debouncedSearch} />
 
-        {totalPages > 1 && (
-          <ReactPaginate
-            pageCount={totalPages}
-            pageRangeDisplayed={5}
-            marginPagesDisplayed={1}
-            onPageChange={({ selected }) => setPage(selected + 1)}
-            forcePage={page - 1}
-            nextLabel="→"
-            previousLabel="←"
-            containerClassName={css.pagination}
-            activeClassName={css.active}
-          />
-        )}
+       {totalPages > 1 && (
+  <Pagination
+    totalPages={totalPages}
+    page={page}
+    onChange={setPage}
+  />
+)}
 
         <button
           className={css.button}
