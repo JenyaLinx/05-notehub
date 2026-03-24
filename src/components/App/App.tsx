@@ -5,14 +5,14 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { useDebouncedCallback } from "use-debounce";
-import Pagination from "../Pagination/pagination";
+import Pagination from "../Pagination/Pagination";
 import { keepPreviousData } from "@tanstack/react-query";
 import { fetchNotes, deleteNote } from "../../services/noteService";
 
-import NoteList from "../NoteList/notelist";
-import SearchBox from "../SearchBox/searchbox";
-import Modal from "../Modal/modal";
-import NoteForm from "../NoteForm/noteform";
+import NoteList from "../NoteList/NoteList";
+import SearchBox from "../SearchBox/SearchBox";
+import Modal from "../Modal/Modal";
+import NoteForm from "../NoteForm/NoteForm";
 
 import css from "./App.module.css";
 
