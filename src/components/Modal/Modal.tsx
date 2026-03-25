@@ -9,18 +9,20 @@ interface ModalProps {
 
 const modalRoot = document.getElementById("modal-root")!;
 
-export default function Modal({
-  children,
-  onClose,
-}: ModalProps) {
+export default function Modal({ children, onClose }: ModalProps) {
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     const esc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
 
     document.addEventListener("keydown", esc);
 
-    return () => document.removeEventListener("keydown", esc);
+    return () => {
+      document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", esc);
+    };
   }, [onClose]);
 
   const handleBackdrop = (
